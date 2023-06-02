@@ -16,7 +16,7 @@
 
 #define DEVICE_NAME CONFIG_BT_DEVICE_NAME
 #define DEVICE_NAME_LEN (sizeof(DEVICE_NAME) - 1)
-
+//#define BT_DATA_TX_POWER 8
 /*
  * Set Advertisement data. Based on the Eddystone specification:
  * https://github.com/google/eddystone/blob/master/protocol-specification.md
@@ -42,6 +42,9 @@ static const struct bt_data sd[] = {
 
 static void bt_ready(int err)
 {
+	//int8_t tx_power=8;
+	//sd_ble_gap_tx_power_set(tx_power);
+
 	char addr_s[BT_ADDR_LE_STR_LEN];
 	bt_addr_le_t addr = {0};
 	size_t count = 1;
@@ -54,6 +57,8 @@ static void bt_ready(int err)
 	printk("Bluetooth initialized\n");
 
 	/* Start advertising */
+	//ble_gap_ch_mask
+
 	err = bt_le_adv_start(BT_LE_ADV_NCONN_IDENTITY, ad, ARRAY_SIZE(ad),
 			      sd, ARRAY_SIZE(sd));
 	if (err) {
